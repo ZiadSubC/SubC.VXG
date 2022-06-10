@@ -1,0 +1,5 @@
+C:\Users\SubC\source\repos\SubC.VXG\SubC.VXG\SubC.VXG\StreamingVXG\obj\Debug\__AndroidLibraryProjects__.zip
+C:\Users\SubC\source\repos\SubC.VXG\SubC.VXG\SubC.VXG\StreamingVXG\obj\Debug\MonoAndroid,Version=v11.0.AssemblyAttributes.cs
+C:\Users\SubC\source\repos\SubC.VXG\SubC.VXG\SubC.VXG\StreamingVXG\obj\Debug\stamp\_BuildLibraryImportsCache.stamp
+C:\Users\SubC\source\repos\SubC.VXG\SubC.VXG\SubC.VXG\StreamingVXG\obj\Debug\StreamingVXG.csproj.CoreCompileInputs.cache
+C:\Users\SubC\source\repos\SubC.VXG\SubC.VXG\SubC.VXG\StreamingVXG\obj\Debug\StreamingVXG.csproj.AssemblyReference.cache
