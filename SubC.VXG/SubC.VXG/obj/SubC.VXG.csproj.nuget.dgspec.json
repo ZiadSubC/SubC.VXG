@@ -28,17 +28,33 @@
           "monoandroid11.0"
         ],
         "sources": {
-          "https://pkgs.dev.azure.com/SubCImaging/_packaging/SubCImaging/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "monoandroid11.0": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubCStreaming\\SubCStreaming.csproj": {
+                "projectPath": "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubCStreaming\\SubCStreaming.csproj"
+              }
+            }
           }
         }
       },
       "frameworks": {
         "monoandroid11.0": {
           "dependencies": {
+            "EmbedIO": {
+              "target": "Package",
+              "version": "[3.4.3, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Client": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22251.1, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Client.Core": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22251.1, )"
+            },
             "Xamarin.AndroidX.AppCompat": {
               "target": "Package",
               "version": "[1.2.0.5, )"
@@ -52,6 +68,68 @@
               "version": "[1.0.0.1, )"
             }
           }
+        }
+      }
+    },
+    "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubCStreaming\\SubCStreaming.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubCStreaming\\SubCStreaming.csproj",
+        "projectName": "SubCStreaming",
+        "projectPath": "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubCStreaming\\SubCStreaming.csproj",
+        "packagesPath": "C:\\Users\\SubC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubCStreaming\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\SubC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "monoandroid11.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "monoandroid11.0": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "monoandroid11.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore.SignalR": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Client": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22251.1, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Client.Core": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22251.1, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
         }
       }
     }

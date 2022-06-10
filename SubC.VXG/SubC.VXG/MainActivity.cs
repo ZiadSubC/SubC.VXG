@@ -4,15 +4,17 @@ using Android.Hardware.Camera2;
 using System.Runtime.Remoting.Contexts;
 using Android.Util;
 using Android.Content;
-
 using Android.OS;
 using Android.Runtime;
 using AndroidX.AppCompat.App;
 using Android.Graphics;
 using Android.Views;
-
+//using SubC.Streaming;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Veg.Mediacapture.Sdk;
+using static Veg.Mediacapture.Sdk.MediaCapture;
+using static Veg.Mediacapture.Sdk.MediaCaptureConfig;
 
 namespace SubC.VXG
 {
@@ -20,6 +22,7 @@ namespace SubC.VXG
     public class MainActivity : AppCompatActivity
     {
         private CameraDevice mCameraDevice;
+        private MediaCapture capture;
 
         public static Task<CameraDevice> OpenCameraAsync(string cameraId, CameraManager cameraManager)
         {
@@ -73,15 +76,18 @@ namespace SubC.VXG
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
+            StreamingSetup();
+
+
             CameraCaptureSession captureSession = null;
 
             var tcs = new TaskCompletionSource<bool>();
 
-            var failedHandler = new EventHandler<CameraCaptureSession>((s, e) =>
-            {
-                captureSession = e;
-                tcs.TrySetResult(false);
-            });
+            //var failedHandler = new EventHandler<CameraCaptureSession>((s, e) =>
+            //{
+            //    captureSession = e;
+            //    tcs.TrySetResult(false);
+            //});
 
             var configuredHandler = new EventHandler<CameraCaptureSession>((s, e) =>
             {
@@ -104,28 +110,101 @@ namespace SubC.VXG
                 await Task.Delay(TimeSpan.FromMilliseconds(100));
             }
             mCameraDevice = await OpenCameraAsync("0", cameraManager);
-
             var surface = new Surface(preview.SurfaceTexture);
+            var streamSurfaces = capture.Surface;
+            var sessionSurfaces = new List<Surface>();
 
-            var previewSurfaces = new List<Surface>();
-
-            previewSurfaces.Add(surface);
+            sessionSurfaces.Add(surface);
+            sessionSurfaces.Add(streamSurfaces);
 
             //try
             //{
-            mCameraDevice.CreateCaptureSession(previewSurfaces, sessionCallback, handler);
+            mCameraDevice.CreateCaptureSession(sessionSurfaces, sessionCallback, handler);
             //}
             //catch (Exception e)
             //{
             //    tcs.TrySetResult(false);
             //    throw e;
             //}
-            var mPreviewBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
+            var mSessionBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
 
-            mPreviewBuilder.AddTarget(surface);
-            var request = mPreviewBuilder.Build();
+            mSessionBuilder.AddTarget(surface);
+            mSessionBuilder.AddTarget(streamSurfaces);
+            var request = mSessionBuilder.Build();
 
+            mSessionBuilder.SetTag(CaptureRequest.ControlAeTargetFpsRange);
+            
             captureSession.SetRepeatingRequest(request, null, null);
+            capture.StartStreaming();
+
+        }
+
+        public void StreamingSetup()
+        {
+            capture = new MediaCapture(this, null);
+            var config = capture.Config;
+
+            config.Streaming = (false);
+            config.Recording = (false);
+            config.Transcoding = (false);
+            config.PreviewScaleType = (0);
+
+            //set portrait
+            //config.VideoOrientation = (McOrientationPortrait);
+            config.VideoOrientation = (McOrientationLandscape);
+
+            //set camera facing
+            //config.setCameraFacing(MediaCaptureConfig.CAMERA_FACING_BACK);
+            //config.setCameraFacing(MediaCaptureConfig.CAMERA_FACING_FRONT);
+
+            //video only
+            config.CaptureMode = (CaptureModes.PpModeVideo.Val()/* | MediaCaptureConfig.CaptureModes.PP_MODE_AUDIO.val()*/);
+
+            //main channel
+            config.CaptureSource = (CaptureSources.PpModeExternal.Val());
+            config.StreamType = (StreamerTypes.StreamTypeRtspServer.Val());
+            config.Url = ("rtsp://@:" + "5540");
+            config.UrlSec = ("rtsp://@:" + "5540");
+
+            config.UseSec = (true);
+            config.VideoResolution = (CaptureVideoResolution.VrCustom);
+
+            IWindowManager wm = GetSystemService(WindowService).JavaCast<IWindowManager>();
+            Display display = wm.DefaultDisplay;
+            DisplayMetrics metrics = new DisplayMetrics();
+            display.GetRealMetrics(metrics);
+
+            // Note: please don't be confused here
+            // Display size is always returned by Display.getRealMetrics() in portrait mode, ex. (1080x1920)
+            // In the EncoderSDK we always set the width as a maximal dimension and
+            // the actual orientation controlled by the setVideoOrientation()
+            //config.setCustomVideoResolution(metrics.heightPixels, metrics.widthPixels);
+
+            //config.setVideoResolution(CaptureVideoResolution.VR_1920x1080);
+
+            config.VideoBitrate = (8000);
+            config.SetVideoTimestampType(VideoTimestampType.Source);
+            //config.setVideoFramerate(60);
+            config.VideoFramerate = (55);
+            config.VideoKeyFrameInterval = (1);
+            config.VideoBitrateMode = (BitrateModeVbr);
+
+            //secondary channel
+            config.SecVideoResolution = (CaptureVideoResolution.VR320x240);
+            config.SecVideoFramerate = (60);
+            config.SecVideoKeyFrameInterval = (1);
+            config.SecVideoBitrate = (400);
+            config.VideoSecBitrateMode = (MediaCaptureConfig.BitrateModeVbr);
+
+            config.Transcoding = (true);
+            config.TransWidth = (1080);
+            config.TransHeight = (1920);
+            config.TransFps = (1);
+            config.TransFormat = (TypeVideoRaw);
+
+            MediaCapture.RequestPermission(this, config.CaptureSource);
+
+            capture.Open(config, null);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
