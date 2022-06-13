@@ -1,0 +1,49 @@
+﻿[*.cs]
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+
+# VSTHRD101: Avoid unsupported async delegates
+dotnet_diagnostic.VSTHRD101.severity = none
+
+# SA1208: System using directives should be placed before other using directives
+dotnet_diagnostic.SA1208.severity = none
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = error
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = error
+
+# SA1513: Closing brace should be followed by blank line
+dotnet_diagnostic.SA1513.severity = error
+
+# SA1629: Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = error
+
+# IDE0008: Use explicit type
+dotnet_diagnostic.IDE0008.severity = none
+
+# SA1000: Keywords should be spaced correctly
+dotnet_diagnostic.SA1000.severity = none
+
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = error
+
+# SA1200: Using directives should be placed correctly
+dotnet_diagnostic.SA1200.severity = error
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = error
+
+# SA1611: Element parameters should be documented
+dotnet_diagnostic.SA1611.severity = error
+
+# SA1614: Element parameter documentation should have text
+dotnet_diagnostic.SA1614.severity = error
+
+# SA1623: Property summary documentation should match accessors
+dotnet_diagnostic.SA1623.severity = error
+
+# SA1512: Single-line comments should not be followed by blank line
+dotnet_diagnostic.SA1512.severity = error
