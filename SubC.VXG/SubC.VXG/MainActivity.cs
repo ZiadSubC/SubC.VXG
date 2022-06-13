@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using Veg.Mediacapture.Sdk;
 using static Veg.Mediacapture.Sdk.MediaCapture;
 using static Veg.Mediacapture.Sdk.MediaCaptureConfig;
+using Android.Media;
+using Orientation = Android.Content.Res.Orientation;
+
 
 namespace SubC.VXG
 {
@@ -139,6 +142,82 @@ namespace SubC.VXG
 
         }
 
+        public const int STATE_PREVIEW = 0;
+        public int mState = STATE_PREVIEW;
+        public const int STATE_WAITING_LOCK = 1;
+        
+        public Handler mBackgroundHandler;
+
+        private void LockFocus()
+        {
+           
+
+            try
+            {
+     
+                // This is how to tell the camera to lock focus.
+
+                mPreviewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, (int)ControlAFTrigger.Start);
+                // Tell #mCaptureCallback to wait for the lock.
+                mState = STATE_WAITING_LOCK;
+                mCaptureSession.Capture(mPreviewRequestBuilder.Build(), null,
+                        mBackgroundHandler);
+            }
+            catch (CameraAccessException e)
+            {
+                e.PrintStackTrace();
+            }
+        }
+
+
+        public void TakePicture()
+        {
+            LockFocus();
+        }
+
+        public async void OnClick(View v)
+        {
+            if (v.Id == Resource.Id.picture)
+            {
+                TakePicture();
+            }
+            else if (v.Id == Resource.Id.info)
+            {
+                
+            }
+        }
+        public CaptureRequest.Builder mPreviewRequestBuilder;
+        public CaptureRequest.Builder stillCaptureBuilder;
+        public CameraCaptureSession mCaptureSession;
+
+        private ImageReader mImageReader;
+        public void CaptureStillPicture()
+        {
+            try
+            {
+                
+                // This is the CaptureRequest.Builder that we use to take a picture.
+                stillCaptureBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.StillCapture);
+
+                stillCaptureBuilder.AddTarget(mImageReader.Surface);
+
+                // Use the same AE and AF modes as the preview.
+                stillCaptureBuilder.Set(CaptureRequest.ControlAfMode, (int)ControlAFMode.ContinuousPicture);
+               // SetAutoFlash(stillCaptureBuilder);
+
+                // Orientation
+                int rotation = (int)this.WindowManager.DefaultDisplay.Rotation;
+
+                mCaptureSession.StopRepeating();
+                mCaptureSession.Capture(stillCaptureBuilder.Build(), new CameraCaptureStillPictureSessionCallback(this), null);
+            }
+            catch (CameraAccessException e)
+            {
+                e.PrintStackTrace();
+            }
+        }
+
+  
         public void StreamingSetup()
         {
             capture = new MediaCapture(this, null);

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gjaaGzZVw0F8uyneiWPRwNveQxFDGCVmVRuYAiLM64FEEm6/KCmLL2IigS4ZdtVReX6l7qmZkZ7H2IJGIXmz8Q==",
+  "dgSpecHash": "QUeSyoMYCSmK3+CBOPT3XaR87Floum3t3mjOT8DRFQ12dTefcAuBhup8UvNyMvzZip878rWM8vpOjmAbwWDoVg==",
   "success": true,
   "projectFilePath": "C:\\Users\\SubC\\source\\repos\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubC.VXG\\SubC.VXG.csproj",
   "expectedPackageFiles": [
@@ -42,6 +42,8 @@
     "C:\\Users\\SubC\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0-preview.4.22229.4\\microsoft.extensions.primitives.7.0.0-preview.4.22229.4.nupkg.sha512",
     "C:\\Users\\SubC\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\SubC\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\SubC\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.435\\stylecop.analyzers.1.2.0-beta.435.nupkg.sha512",
+    "C:\\Users\\SubC\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.435\\stylecop.analyzers.unstable.1.2.0.435.nupkg.sha512",
     "C:\\Users\\SubC\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\SubC\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.0-preview.4.22229.4\\system.diagnostics.diagnosticsource.7.0.0-preview.4.22229.4.nupkg.sha512",
     "C:\\Users\\SubC\\.nuget\\packages\\system.io.pipelines\\7.0.0-preview.4.22229.4\\system.io.pipelines.7.0.0-preview.4.22229.4.nupkg.sha512",
